@@ -1,0 +1,25 @@
+version: "3"
+services:
+  testmongodb:
+    image: mongo:latest
+    container_name: "testmongodb"
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+
+  javmong:
+    image: javmong
+    container_name: "javmong"
+    ports:
+      - "8080:8080"
+    links:
+      - testmongodb
+
+volumes:
+  mongodb_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /Users/callumcampbell/Documents/Development/mongo-test/mongodb_data
+      o: bind
